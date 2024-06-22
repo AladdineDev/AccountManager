@@ -2,11 +2,18 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.compose.compiler)
+    id("androidx.room")
+    id("com.google.devtools.ksp")
 }
 
 android {
     namespace = "com.example.accountmanager"
     compileSdk = 34
+
+    room {
+        schemaDirectory("$projectDir/schemas")
+    }
+
 
     defaultConfig {
         applicationId = "com.example.accountmanager"
@@ -31,11 +38,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_19
-        targetCompatibility = JavaVersion.VERSION_19
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "19"
+        jvmTarget = "1.8"
     }
     buildFeatures {
         compose = true
@@ -72,5 +79,5 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.runtime.livedata)
-
+    ksp(libs.androidx.room.compiler)
 }
