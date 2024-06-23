@@ -93,7 +93,7 @@ fun EditAccountScreen(navController: NavHostController, accountId: Int, viewMode
                         .fillMaxWidth()
                         .background(color = Color.Gray.copy(alpha = 0.1f), shape = RoundedCornerShape(8.dp))
                         .padding(16.dp)
-                        .padding(bottom = 16.dp),
+                        .padding(bottom = 2.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     Text("Account Information", fontSize = 18.sp)
