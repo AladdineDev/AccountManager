@@ -6,9 +6,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material3.Button
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -22,6 +27,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.accountmanager.viewmodel.AccountViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AccountListScreen(navController: NavHostController, viewModel: AccountViewModel = viewModel()) {
     val accounts by viewModel.accounts.observeAsState(emptyList())
@@ -30,9 +36,27 @@ fun AccountListScreen(navController: NavHostController, viewModel: AccountViewMo
     var query by remember { mutableStateOf(TextFieldValue("")) }
     var lastQuery by remember { mutableStateOf("") }
 
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        topBar = {
+            TopAppBar(
+                title = { Text(text = "Account List") }
+            )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { navController.navigate("add_edit_account") },
+                modifier = Modifier.padding(16.dp),
+                content = {
+                    Icon(Icons.Default.Add, contentDescription = "Add Account")
+                }
+            )
 
-    Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-        Column(modifier = Modifier.fillMaxSize().padding(innerPadding)) {
+        }
+    ) { innerPadding ->
+        Column(modifier = Modifier
+            .fillMaxSize()
+            .padding(innerPadding)) {
             BasicTextField(
                 value = query,
                 onValueChange = {
@@ -43,12 +67,11 @@ fun AccountListScreen(navController: NavHostController, viewModel: AccountViewMo
                         viewModel.searchAccounts(newQuery)
                     }
                 },
-                modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 8.dp),
                 singleLine = true
             )
-            Button(onClick = { navController.navigate("add_edit_account") }) {
-                Text(text = "Add Account")
-            }
             LazyColumn(modifier = Modifier.fillMaxSize()) {
                 val displayAccounts = if (query.text.isNotEmpty()) searchResults else accounts
                 items(displayAccounts) { account ->
