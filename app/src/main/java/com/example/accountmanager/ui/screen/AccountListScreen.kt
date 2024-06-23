@@ -86,7 +86,7 @@ fun AccountListScreen(navController: NavHostController, viewModel: AccountViewMo
                     }
                 },
             )
-            Box(Modifier.height(16.dp))
+            Box(Modifier.height(12.dp))
             LazyColumn(modifier = Modifier.fillMaxSize().padding(horizontal = 16.dp)) {
                 val displayAccounts = if (query.text.isNotEmpty()) searchResults else accounts
                 items(displayAccounts) { account ->
