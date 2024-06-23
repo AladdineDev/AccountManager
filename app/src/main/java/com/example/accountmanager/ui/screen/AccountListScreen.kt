@@ -109,7 +109,6 @@ fun AccountListScreen(
                             navController.navigate("edit_account/${account.id}")
                         },
                         onDeleteClick = {
-                            // Show confirmation dialog for deletion
                             viewModel.deleteAccount(account)
                         }
                     )

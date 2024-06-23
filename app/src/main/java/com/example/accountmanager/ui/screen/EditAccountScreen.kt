@@ -83,7 +83,7 @@ fun EditAccountScreen(navController: NavHostController, accountId: Int, viewMode
                 .fillMaxSize()
                 .padding(innerPadding)
                 .padding(horizontal = 16.dp)
-                .verticalScroll(rememberScrollState()), // Permet le défilement vertical
+                .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
