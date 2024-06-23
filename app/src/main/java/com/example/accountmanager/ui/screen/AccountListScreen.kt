@@ -101,7 +101,7 @@ fun AccountListScreen(navController: NavHostController, viewModel: AccountViewMo
                     ) {
                         ListItem(
                             headlineContent = { Text(text = account.service) },
-                            supportingContent = { Text(text = account.identifier) },
+                            supportingContent = { Text(text = account.email) },
                         )
                     }
                 }

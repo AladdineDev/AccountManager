@@ -30,9 +30,9 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
     }
 
 
-    fun addAccount(service: Service, identifier: String, password: String) {
+    fun addAccount(service: Service, email: String, password: String) {
         viewModelScope.launch {
-            accountDao.insert(Account(service = service.displayName, identifier = identifier, password = password))
+            accountDao.insert(Account(service = service.displayName, email = email, password = password))
         }
     }
 

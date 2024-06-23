@@ -7,6 +7,6 @@ import androidx.room.PrimaryKey
 data class Account(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val service: String,
-    val identifier: String,
+    val email: String,
     val password: String
 )

@@ -46,7 +46,7 @@ import com.example.accountmanager.viewmodel.AccountViewModel
 @Composable
 fun AddEditAccountScreen(navController: NavHostController, viewModel: AccountViewModel = viewModel()) {
     var service by remember { mutableStateOf(Service.MICROSOFT) }
-    var identifier by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var expanded by remember { mutableStateOf(false) }
 
@@ -113,9 +113,9 @@ fun AddEditAccountScreen(navController: NavHostController, viewModel: AccountVie
                     }
 
                     TextField(
-                        value = identifier,
-                        onValueChange = { identifier = it },
-                        label = { Text("Identifier") },
+                        value = email,
+                        onValueChange = { email = it },
+                        label = { Text("Email") },
                         modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp),
                         keyboardOptions = KeyboardOptions.Default.copy(
                             imeAction = ImeAction.Next,
@@ -137,7 +137,7 @@ fun AddEditAccountScreen(navController: NavHostController, viewModel: AccountVie
                     )
                     Button(
                         onClick = {
-                            viewModel.addAccount(service, identifier, password)
+                            viewModel.addAccount(service, email, password)
                             navController.popBackStack()
                         },
                         modifier = Modifier
