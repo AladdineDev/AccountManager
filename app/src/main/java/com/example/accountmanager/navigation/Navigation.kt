@@ -1,10 +1,10 @@
 package com.example.accountmanager.navigation
 
-import AccountListScreen
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.accountmanager.ui.screen.AccountListScreen
 import com.example.accountmanager.ui.screen.AddEditAccountScreen
 
 @Composable
