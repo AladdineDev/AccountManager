@@ -124,12 +124,13 @@ fun EditAccountScreen(navController: NavHostController, accountId: Int, viewMode
                         value = service.displayName,
                         onValueChange = {},
                         readOnly = true,
+                        enabled = false,
                         label = { Text("Service") },
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(bottom = 16.dp),
                         trailingIcon = {
-                            IconButton(onClick = { expanded = true }) {
+                            IconButton(onClick = { expanded = true }, enabled = false) {
                                 Icon(Icons.Default.ArrowDropDown, contentDescription = "Dropdown arrow")
                             }
                         }
