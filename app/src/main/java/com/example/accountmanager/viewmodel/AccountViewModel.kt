@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.accountmanager.data.AccountDao
 import com.example.accountmanager.data.AppDatabase
 import com.example.accountmanager.model.Account
+import com.example.accountmanager.model.Service
 import kotlinx.coroutines.launch
 
 class AccountViewModel(application: Application) : AndroidViewModel(application) {
@@ -29,9 +30,9 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
     }
 
 
-    fun addAccount(service: String, identifier: String, password: String) {
+    fun addAccount(service: Service, identifier: String, password: String) {
         viewModelScope.launch {
-            accountDao.insert(Account(service = service, identifier = identifier, password = password))
+            accountDao.insert(Account(service = service.displayName, identifier = identifier, password = password))
         }
     }
 
