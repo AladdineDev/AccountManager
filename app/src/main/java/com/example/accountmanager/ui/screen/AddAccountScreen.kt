@@ -44,8 +44,8 @@ import com.example.accountmanager.viewmodel.AccountViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddEditAccountScreen(navController: NavHostController, viewModel: AccountViewModel = viewModel()) {
-    var service by remember { mutableStateOf(Service.MICROSOFT) }
+fun AddAccountScreen(navController: NavHostController, viewModel: AccountViewModel = viewModel()) {
+    var service by remember { mutableStateOf(Service.entries.first()) }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var expanded by remember { mutableStateOf(false) }
@@ -53,7 +53,7 @@ fun AddEditAccountScreen(navController: NavHostController, viewModel: AccountVie
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Add/Edit Account") },
+                title = { Text("Add Account") },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")

@@ -24,4 +24,7 @@ interface AccountDao {
 
     @Delete
     suspend fun delete(account: Account)
+
+    @Query("SELECT * FROM accounts WHERE id = :accountId")
+    fun getAccountById(accountId: Int): LiveData<Account?>
 }

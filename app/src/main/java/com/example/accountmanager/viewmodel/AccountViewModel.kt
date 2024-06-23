@@ -29,10 +29,9 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-
     fun addAccount(service: Service, email: String, password: String) {
         viewModelScope.launch {
-            accountDao.insert(Account(service = service.displayName, email = email, password = password))
+            accountDao.insert(Account(service = service, email = email, password = password))
         }
     }
 
@@ -46,5 +45,9 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
         viewModelScope.launch {
             accountDao.delete(account)
         }
+    }
+
+    fun getAccountById(accountId: Int): LiveData<Account?> {
+        return accountDao.getAccountById(accountId)
     }
 }
