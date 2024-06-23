@@ -13,7 +13,7 @@ interface AccountDao {
     @Query("SELECT * FROM accounts")
     fun getAllAccounts(): LiveData<List<Account>>
 
-    @Query("SELECT * FROM accounts WHERE service LIKE '%' || :query || '%'")
+    @Query("SELECT * FROM accounts WHERE service LIKE :query || '%'")
     fun searchAccounts(query: String): LiveData<List<Account>>
 
     @Insert
