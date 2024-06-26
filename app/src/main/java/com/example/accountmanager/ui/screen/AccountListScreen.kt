@@ -14,8 +14,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -111,38 +109,6 @@ fun AccountListScreen(
                 }
             }
         }
-    }
-}
-
-@Composable
-fun DeleteConfirmationDialog(
-    showDialog: Boolean,
-    onConfirm: () -> Unit,
-    onDismiss: () -> Unit
-) {
-    if (showDialog) {
-        AlertDialog(
-            onDismissRequest = { onDismiss() },
-            title = { Text("Delete Account") },
-            text = { Text("Are you sure you want to delete this account?") },
-            confirmButton = {
-                Button(
-                    onClick = {
-                        onConfirm()
-                        onDismiss()
-                    }
-                ) {
-                    Text("Confirm")
-                }
-            },
-            dismissButton = {
-                Button(
-                    onClick = { onDismiss() }
-                ) {
-                    Text("Cancel")
-                }
-            }
-        )
     }
 }
 
