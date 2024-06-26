@@ -80,4 +80,5 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.runtime.livedata)
     ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.material.icons.extended)
 }

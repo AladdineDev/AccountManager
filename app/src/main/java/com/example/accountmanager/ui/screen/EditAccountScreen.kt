@@ -19,6 +19,8 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -42,6 +44,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -58,6 +62,7 @@ fun EditAccountScreen(navController: NavHostController, accountId: Int, viewMode
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var expanded by remember { mutableStateOf(false) }
+    var passwordVisible by remember { mutableStateOf(false) }
 
     if (account != null) {
         service = account!!.service
@@ -168,13 +173,21 @@ fun EditAccountScreen(navController: NavHostController, accountId: Int, viewMode
                         onValueChange = { password = it },
                         label = { Text("Password") },
                         modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp),
+                        visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                         keyboardOptions = KeyboardOptions.Default.copy(
                             imeAction = ImeAction.Done,
                             keyboardType = KeyboardType.Password,
                             autoCorrect = false
-                        )
+                        ),
+                        trailingIcon = {
+                            val icon = if (passwordVisible)
+                                Icons.Filled.Visibility
+                            else Icons.Filled.VisibilityOff
+                            IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                                Icon(imageVector = icon, contentDescription = if (passwordVisible) "Hide password" else "Show password")
+                            }
+                        }
                     )
-
                     Button(
                         onClick = {
                             account?.let {
