@@ -5,7 +5,7 @@ on:
       - main
 
 jobs:
-  export_android:
+  publish:
 
     runs-on: ubuntu-latest
 
@@ -28,8 +28,7 @@ jobs:
         with:
           api_token: ${{secrets.TESTAPPIO_API_TOKEN}}
           app_id: ${{secrets.TESTAPPIO_APP_ID}}
-          file: app/build/outputs/apk/release/app-release-unsigned.apk
-          release_notes: "Testing manual release notes..."
+          file: app/build/outputs/apk/release/app-release.apk
           git_release_notes: true
           include_git_commit_id: false
           notify: true
