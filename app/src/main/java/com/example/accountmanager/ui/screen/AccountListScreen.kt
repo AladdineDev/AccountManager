@@ -1,8 +1,8 @@
 package com.example.accountmanager.ui.screen
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -13,7 +13,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Clear
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -105,12 +104,9 @@ fun AccountListScreen(
                 items(displayAccounts) { account ->
                     AccountListItem(
                         account = account,
-                        onEditClick = {
+                        onItemClick = {
                             navController.navigate("edit_account/${account.id}")
                         },
-                        onDeleteClick = {
-                            viewModel.deleteAccount(account)
-                        }
                     )
                 }
             }
@@ -154,39 +150,24 @@ fun DeleteConfirmationDialog(
 @Composable
 fun AccountListItem(
     account: Account,
-    onEditClick: () -> Unit,
-    onDeleteClick: () -> Unit
+    onItemClick: () -> Unit
 ) {
-
-    var showDialog by remember { mutableStateOf(false) }
-
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp),
+            .padding(vertical = 8.dp)
+            .clickable { onItemClick() },
         shape = RoundedCornerShape(8.dp),
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
-        Column {
-            ListItem(
-                headlineContent = { Text(text = account.service.displayName) },
-                supportingContent = { Text(text = account.email) },
-                trailingContent = {
-                    Row {
-                        IconButton(onClick = { onEditClick() }) {
-                            Icon(Icons.Default.Edit, contentDescription = "Edit")
-                        }
-                        IconButton(onClick = { showDialog = true }) {
-                            Icon(Icons.Default.Delete, contentDescription = "Delete")
-                        }
-                    }
+        ListItem(
+            headlineContent = { Text(text = account.service.displayName) },
+            supportingContent = { Text(text = account.email) },
+            trailingContent = {
+                IconButton(onClick = { onItemClick() }) {
+                    Icon(Icons.Default.Edit, contentDescription = "Edit")
                 }
-            )
-            DeleteConfirmationDialog(
-                showDialog = showDialog,
-                onConfirm = onDeleteClick,
-                onDismiss = { showDialog = false }
-            )
-        }
+            }
+        )
     }
 }
