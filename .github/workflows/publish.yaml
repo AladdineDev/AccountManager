@@ -11,7 +11,8 @@ jobs:
 
     steps:
 
-      - name: Checkout repository
+      - run: echo "Starting the workflow"
+        name: Checkout repository
       - uses: actions/checkout@v2
 
       - name: Set up JDK 1.8
