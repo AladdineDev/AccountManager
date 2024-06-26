@@ -1,5 +1,6 @@
 package com.example.accountmanager.ui.screen
 
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -36,6 +37,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -54,6 +56,7 @@ fun AddAccountScreen(navController: NavHostController, viewModel: AccountViewMod
     var password by remember { mutableStateOf("") }
     var expanded by remember { mutableStateOf(false) }
     var passwordVisible by remember { mutableStateOf(false) }
+    val context = LocalContext.current
 
     Scaffold(
         topBar = {
@@ -152,6 +155,7 @@ fun AddAccountScreen(navController: NavHostController, viewModel: AccountViewMod
                         onClick = {
                             viewModel.addAccount(service, email, password)
                             navController.popBackStack()
+                            Toast.makeText(context, "Account created successfully", Toast.LENGTH_LONG).show()
                         },
                         modifier = Modifier
                             .fillMaxWidth()

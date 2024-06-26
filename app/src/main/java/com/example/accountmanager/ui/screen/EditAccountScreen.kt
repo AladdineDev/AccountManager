@@ -1,5 +1,6 @@
 package com.example.accountmanager.ui.screen
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -43,6 +44,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -59,6 +61,7 @@ import com.example.accountmanager.viewmodel.AccountViewModel
 @Composable
 fun EditAccountScreen(navController: NavHostController, accountId: Int, viewModel: AccountViewModel = viewModel()) {
     val account by viewModel.getAccountById(accountId).observeAsState()
+    val context = LocalContext.current
 
     var service by remember { mutableStateOf(Service.entries.first()) }
     var email by remember { mutableStateOf("") }
@@ -203,6 +206,7 @@ fun EditAccountScreen(navController: NavHostController, accountId: Int, viewMode
                             account?.let {
                                 viewModel.updateAccount(it.copy(service = service, email = email, password = password))
                                 navController.popBackStack()
+                                Toast.makeText(context, "Account updated successfully", Toast.LENGTH_LONG).show()
                             }
                         },
                         modifier = Modifier
@@ -224,6 +228,7 @@ fun EditAccountScreen(navController: NavHostController, accountId: Int, viewMode
             account?.let {
                 viewModel.deleteAccount(it)
                 navController.popBackStack()
+                Toast.makeText(context, "Account deleted successfully", Toast.LENGTH_LONG).show()
             }
         }
     )
