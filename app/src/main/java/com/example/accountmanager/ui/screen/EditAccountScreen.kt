@@ -22,6 +22,7 @@ import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenu
@@ -51,6 +52,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.accountmanager.model.Service
+import com.example.accountmanager.ui.component.DeleteAccountDialog
 import com.example.accountmanager.viewmodel.AccountViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -63,6 +65,7 @@ fun EditAccountScreen(navController: NavHostController, accountId: Int, viewMode
     var password by remember { mutableStateOf("") }
     var expanded by remember { mutableStateOf(false) }
     var passwordVisible by remember { mutableStateOf(false) }
+    var showDeleteDialog by remember { mutableStateOf(false) }
 
     if (account != null) {
         service = account!!.service
@@ -112,7 +115,14 @@ fun EditAccountScreen(navController: NavHostController, accountId: Int, viewMode
                     }
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(Icons.Default.Lock, contentDescription = "Password", modifier = Modifier.padding(end = 8.dp))
-                        Text(account.password)
+                        Text("********")
+                    }
+                    Button(
+                        onClick = { showDeleteDialog = true },
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color.Red)
+                    ) {
+                        Text(text = "Delete account", color = Color.White)
                     }
                 }
             }
@@ -206,4 +216,15 @@ fun EditAccountScreen(navController: NavHostController, accountId: Int, viewMode
             Spacer(modifier = Modifier.height(16.dp))
         }
     }
+
+    DeleteAccountDialog(
+        show = showDeleteDialog,
+        onDismiss = { showDeleteDialog = false },
+        onConfirm = {
+            account?.let {
+                viewModel.deleteAccount(it)
+                navController.popBackStack()
+            }
+        }
+    )
 }
