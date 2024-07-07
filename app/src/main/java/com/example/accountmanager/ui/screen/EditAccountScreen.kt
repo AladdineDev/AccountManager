@@ -45,6 +45,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -53,6 +54,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import com.example.accountmanager.R
 import com.example.accountmanager.model.Service
 import com.example.accountmanager.ui.component.DeleteAccountDialog
 import com.example.accountmanager.viewmodel.AccountViewModel
@@ -79,10 +81,11 @@ fun EditAccountScreen(navController: NavHostController, accountId: Int, viewMode
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Edit Account") },
+                title = { Text(stringResource(R.string.edit_account_title)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(
+                            R.string.back))
                     }
                 }
             )
@@ -102,22 +105,25 @@ fun EditAccountScreen(navController: NavHostController, accountId: Int, viewMode
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(color = Color.Gray.copy(alpha = 0.1f), shape = RoundedCornerShape(8.dp))
+                        .background(
+                            color = Color.Gray.copy(alpha = 0.1f),
+                            shape = RoundedCornerShape(8.dp)
+                        )
                         .padding(16.dp)
                         .padding(bottom = 2.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    Text("Account Information", fontSize = 18.sp)
+                    Text(stringResource(R.string.account_information), fontSize = 18.sp)
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(Icons.Default.AccountCircle, contentDescription = "Account", modifier = Modifier.padding(end = 8.dp))
+                        Icon(Icons.Default.AccountCircle, contentDescription = stringResource(R.string.account), modifier = Modifier.padding(end = 8.dp))
                         Text(account.service.displayName)
                     }
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(Icons.Default.Email, contentDescription = "Email", modifier = Modifier.padding(end = 8.dp))
+                        Icon(Icons.Default.Email, contentDescription = stringResource(R.string.email), modifier = Modifier.padding(end = 8.dp))
                         Text(account.email)
                     }
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(Icons.Default.Lock, contentDescription = "Password", modifier = Modifier.padding(end = 8.dp))
+                        Icon(Icons.Default.Lock, contentDescription = stringResource(R.string.password), modifier = Modifier.padding(end = 8.dp))
                         Text("********")
                     }
                     Button(
@@ -125,7 +131,7 @@ fun EditAccountScreen(navController: NavHostController, accountId: Int, viewMode
                         modifier = Modifier.fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(containerColor = Color.Red)
                     ) {
-                        Text(text = "Delete account", color = Color.White)
+                        Text(text = stringResource(R.string.delete_account), color = Color.White)
                     }
                 }
             }
@@ -143,13 +149,13 @@ fun EditAccountScreen(navController: NavHostController, accountId: Int, viewMode
                         onValueChange = {},
                         readOnly = true,
                         enabled = false,
-                        label = { Text("Service") },
+                        label = { Text(stringResource(R.string.service)) },
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(bottom = 16.dp),
                         trailingIcon = {
                             IconButton(onClick = { expanded = true }, enabled = false) {
-                                Icon(Icons.Default.ArrowDropDown, contentDescription = "Dropdown arrow")
+                                Icon(Icons.Default.ArrowDropDown, contentDescription = stringResource(R.string.dropdown_arrow))
                             }
                         }
                     )
@@ -172,8 +178,10 @@ fun EditAccountScreen(navController: NavHostController, accountId: Int, viewMode
                     TextField(
                         value = email,
                         onValueChange = { email = it },
-                        label = { Text("Email") },
-                        modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp),
+                        label = { Text(stringResource(R.string.email)) },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 16.dp),
                         keyboardOptions = KeyboardOptions.Default.copy(
                             imeAction = ImeAction.Next,
                             keyboardType = KeyboardType.Email,
@@ -184,8 +192,10 @@ fun EditAccountScreen(navController: NavHostController, accountId: Int, viewMode
                     TextField(
                         value = password,
                         onValueChange = { password = it },
-                        label = { Text("Password") },
-                        modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp),
+                        label = { Text(stringResource(R.string.password)) },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 16.dp),
                         visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                         keyboardOptions = KeyboardOptions.Default.copy(
                             imeAction = ImeAction.Done,
@@ -197,7 +207,8 @@ fun EditAccountScreen(navController: NavHostController, accountId: Int, viewMode
                                 Icons.Filled.Visibility
                             else Icons.Filled.VisibilityOff
                             IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                                Icon(imageVector = icon, contentDescription = if (passwordVisible) "Hide password" else "Show password")
+                                Icon(imageVector = icon, contentDescription = if (passwordVisible)  stringResource(R.string.hide_password)
+                                else  stringResource(R.string.show_password))
                             }
                         }
                     )
@@ -206,14 +217,14 @@ fun EditAccountScreen(navController: NavHostController, accountId: Int, viewMode
                             account?.let {
                                 viewModel.updateAccount(it.copy(service = service, email = email, password = password))
                                 navController.popBackStack()
-                                Toast.makeText(context, "Account updated successfully", Toast.LENGTH_LONG).show()
+                                Toast.makeText(context, R.string.account_updated_success, Toast.LENGTH_LONG).show()
                             }
                         },
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(56.dp)
                     ) {
-                        Text(text = "Save")
+                        Text(text = stringResource(R.string.save))
                     }
                 }
             }
@@ -228,7 +239,7 @@ fun EditAccountScreen(navController: NavHostController, accountId: Int, viewMode
             account?.let {
                 viewModel.deleteAccount(it)
                 navController.popBackStack()
-                Toast.makeText(context, "Account deleted successfully", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, R.string.account_deleted_success, Toast.LENGTH_LONG).show()
             }
         }
     )

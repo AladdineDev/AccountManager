@@ -32,10 +32,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import com.example.accountmanager.R
 import com.example.accountmanager.model.Account
 import com.example.accountmanager.viewmodel.AccountViewModel
 
@@ -55,7 +57,7 @@ fun AccountListScreen(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
-                title = { Text(text = "Account List") }
+                title = { Text(text = stringResource(R.string.account_list)) }
             )
         },
         floatingActionButton = {
@@ -63,7 +65,7 @@ fun AccountListScreen(
                 onClick = { navController.navigate("add_account") },
                 modifier = Modifier.padding(16.dp),
                 content = {
-                    Icon(Icons.Default.Add, contentDescription = "Add Account")
+                    Icon(Icons.Default.Add, contentDescription = stringResource(R.string.add_account))
                 }
             )
         }
@@ -86,11 +88,11 @@ fun AccountListScreen(
                 },
                 modifier = Modifier
                     .fillMaxWidth(),
-                label = { Text("Search Accounts") },
+                label = { Text( stringResource(R.string.search_accounts)) },
                 singleLine = true,
                 trailingIcon = {
                     IconButton(onClick = { query = TextFieldValue("") }) {
-                        Icon(Icons.Default.Clear, contentDescription = "Clear Search")
+                        Icon(Icons.Default.Clear, contentDescription = stringResource(R.string.clear_search) )
                     }
                 },
             )
@@ -131,7 +133,7 @@ fun AccountListItem(
             supportingContent = { Text(text = account.email) },
             trailingContent = {
                 IconButton(onClick = { onItemClick() }) {
-                    Icon(Icons.Default.Edit, contentDescription = "Edit")
+                    Icon(Icons.Default.Edit, contentDescription = stringResource(R.string.edit))
                 }
             }
         )

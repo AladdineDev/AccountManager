@@ -38,6 +38,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -45,6 +46,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import com.example.accountmanager.R
 import com.example.accountmanager.model.Service
 import com.example.accountmanager.viewmodel.AccountViewModel
 
@@ -61,10 +63,10 @@ fun AddAccountScreen(navController: NavHostController, viewModel: AccountViewMod
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Add Account") },
+                title = { Text(stringResource(R.string.add_account)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription =  stringResource(R.string.back))
                     }
                 }
             )
@@ -94,13 +96,13 @@ fun AddAccountScreen(navController: NavHostController, viewModel: AccountViewMod
                         value = service.displayName,
                         onValueChange = {},
                         readOnly = true,
-                        label = { Text("Service") },
+                        label = { Text(stringResource(R.string.service)) },
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(bottom = 16.dp),
                         trailingIcon = {
                             IconButton(onClick = { expanded = true }) {
-                                Icon(Icons.Default.ArrowDropDown, contentDescription = "Dropdown arrow")
+                                Icon(Icons.Default.ArrowDropDown, contentDescription = stringResource(R.string.dropdown_arrow))
                             }
                         }
                     )
@@ -123,8 +125,10 @@ fun AddAccountScreen(navController: NavHostController, viewModel: AccountViewMod
                     TextField(
                         value = email,
                         onValueChange = { email = it },
-                        label = { Text("Email") },
-                        modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp),
+                        label = { Text(stringResource(R.string.email)) },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 16.dp),
                         keyboardOptions = KeyboardOptions.Default.copy(
                             imeAction = ImeAction.Next,
                             keyboardType = KeyboardType.Email,
@@ -134,8 +138,10 @@ fun AddAccountScreen(navController: NavHostController, viewModel: AccountViewMod
                     TextField(
                         value = password,
                         onValueChange = { password = it },
-                        label = { Text("Password") },
-                        modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp),
+                        label = { Text(stringResource(R.string.password)) },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 16.dp),
                         visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                         keyboardOptions = KeyboardOptions.Default.copy(
                             imeAction = ImeAction.Done,
@@ -147,7 +153,8 @@ fun AddAccountScreen(navController: NavHostController, viewModel: AccountViewMod
                                 Icons.Filled.Visibility
                             else Icons.Filled.VisibilityOff
                             IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                                Icon(imageVector = icon, contentDescription = if (passwordVisible) "Hide password" else "Show password")
+                                Icon(imageVector = icon, contentDescription = if (passwordVisible)  stringResource(R.string.hide_password
+                                ) else stringResource(R.string.show_password))
                             }
                         }
                     )
@@ -155,13 +162,14 @@ fun AddAccountScreen(navController: NavHostController, viewModel: AccountViewMod
                         onClick = {
                             viewModel.addAccount(service, email, password)
                             navController.popBackStack()
-                            Toast.makeText(context, "Account created successfully", Toast.LENGTH_LONG).show()
+                            Toast.makeText(context, R.string.account_created_successfully, Toast.LENGTH_LONG).show()
+
                         },
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(56.dp)
                     ) {
-                        Text(text = "Save")
+                        Text(text = stringResource(R.string.save))
                     }
                 }
             }
