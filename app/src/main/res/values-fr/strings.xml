@@ -21,8 +21,7 @@
     <string name="delete_account">Supprimer le compte</string>
     <string name="account_updated_success">Compte mis à jour avec succès</string>
     <string name="account_deleted_success">Compte supprimé avec succès</string>
-
-
-
-
+    <string name="cancel">Annuler</string>
+    <string name="confirm">Confirmer</string>
+    <string name="delete_account_message">Êtes-vous sûr de vouloir supprimer ce compte?</string>
 </resources>

@@ -21,5 +21,7 @@
     <string name="delete_account">Delete account</string>
     <string name="account_updated_success">Account updated successfully</string>
     <string name="account_deleted_success">Account deleted successfully</string>
-
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="delete_account_message">Are you sure you want to delete this account?</string>
 </resources>
