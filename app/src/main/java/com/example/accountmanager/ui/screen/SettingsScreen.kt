@@ -37,11 +37,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ClipboardManager
 import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.accountmanager.R
 import com.example.accountmanager.lib.PasswordUtils
 import com.example.accountmanager.model.LetterCase
 import com.example.accountmanager.model.Settings
@@ -76,10 +78,10 @@ fun SettingsScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         TopAppBar(
-            title = { Text("Add Account") },
+            title = { Text(stringResource(R.string.settings)) },
             navigationIcon = {
                 IconButton(onClick = { navController.popBackStack() }) {
-                    Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                    Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.back))
                 }
             }
         )
@@ -88,7 +90,7 @@ fun SettingsScreen(
             modifier = Modifier.padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
-            Text("Password Length: ${passwordLength.toInt()}")
+            Text("${stringResource(R.string.include_special_chars)} $passwordLength")
             Slider(
                 value = passwordLength.toFloat(),
                 onValueChange = { passwordLength = it.roundToInt() },
@@ -99,7 +101,7 @@ fun SettingsScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                Text("Include Numbers")
+                Text(stringResource(R.string.include_numbers))
                 Switch(
                     checked = includeNumbers,
                     onCheckedChange = { includeNumbers = it }
@@ -109,7 +111,7 @@ fun SettingsScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                Text("Include Special Characters")
+                Text(stringResource(R.string.include_special_chars))
                 Switch(
                     checked = includeSpecialChars,
                     onCheckedChange = { includeSpecialChars = it }
@@ -122,8 +124,8 @@ fun SettingsScreen(
                     isDropdownExpanded = !isDropdownExpanded
                 }
             ) {
-                Text("Letter Case : $letterCase")
-                Icon(Icons.Default.ArrowDropDown, contentDescription = "Dropdown arrow")
+                Text("${stringResource(R.string.letter_case)} : ${stringResource(letterCase.stringResId())}")
+                Icon(Icons.Default.ArrowDropDown, contentDescription = "")
             }
             DropdownMenu(
                 expanded = isDropdownExpanded,
@@ -131,7 +133,7 @@ fun SettingsScreen(
             ) {
                 LetterCase.entries.forEach { option ->
                     DropdownMenuItem(
-                        text = { Text(option.stringResId()) },
+                        text = { Text(stringResource(option.stringResId())) },
                         onClick = {
                             letterCase = option
                             isDropdownExpanded = false
@@ -153,7 +155,7 @@ fun SettingsScreen(
                     )
                 }
             ) {
-                Text("Save settings")
+                Text(stringResource(R.string.save_settings))
             }
 
         }

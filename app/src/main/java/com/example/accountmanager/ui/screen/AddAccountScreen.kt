@@ -2,6 +2,8 @@ package com.example.accountmanager.ui.screen
 
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -30,6 +33,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldColors
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -41,6 +46,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -78,7 +84,10 @@ fun AddAccountScreen(
                 title = { Text(stringResource(R.string.add_account)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription =  stringResource(R.string.back))
+                        Icon(
+                            Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = stringResource(R.string.back)
+                        )
                     }
                 }
             )
@@ -108,15 +117,33 @@ fun AddAccountScreen(
                         value = service.displayName,
                         onValueChange = {},
                         readOnly = true,
+                        enabled = false,
+                        colors = TextFieldDefaults.colors(
+                            disabledTextColor = Color.Black,
+                            disabledLabelColor = Color.Black,
+                            disabledTrailingIconColor = Color.Black,
+                            disabledSupportingTextColor = Color.Black
+                        ),
                         label = { Text(stringResource(R.string.service)) },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(bottom = 16.dp),
+                            .padding(bottom = 16.dp)
+                            .clickable { expanded = true },
+                        leadingIcon = {
+                            Image(
+                                modifier = Modifier.size(28.dp),
+                                painter = painterResource(service.getLogoResId()),
+                                contentDescription = service.displayName
+                            )
+                        },
                         trailingIcon = {
                             IconButton(onClick = { expanded = true }) {
-                                Icon(Icons.Default.ArrowDropDown, contentDescription = stringResource(R.string.dropdown_arrow))
+                                Icon(
+                                    Icons.Default.ArrowDropDown,
+                                    contentDescription = stringResource(R.string.dropdown_arrow)
+                                )
                             }
-                        }
+                        },
                     )
                     DropdownMenu(
                         expanded = expanded,
@@ -125,7 +152,19 @@ fun AddAccountScreen(
                     ) {
                         Service.entries.forEach { selectedService ->
                             DropdownMenuItem(
-                                text = { Text(selectedService.displayName) },
+                                text = {
+                                    Row (
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.spacedBy(16.dp)
+                                    ) {
+                                        Image(
+                                            modifier = Modifier.size(28.dp),
+                                            painter = painterResource(selectedService.getLogoResId()),
+                                            contentDescription = selectedService.displayName
+                                        )
+                                        Text(selectedService.displayName)
+                                    }
+                                },
                                 onClick = {
                                     service = selectedService
                                     expanded = false
@@ -167,7 +206,9 @@ fun AddAccountScreen(
                                 IconButton(onClick = { passwordVisible = !passwordVisible }) {
                                     Icon(
                                         imageVector = icon,
-                                        contentDescription = if (passwordVisible) stringResource(R.string.hide_password) else stringResource(R.string.show_password)
+                                        contentDescription = if (passwordVisible) stringResource(R.string.hide_password) else stringResource(
+                                            R.string.show_password
+                                        )
                                     )
                                 }
                                 IconButton(
@@ -196,7 +237,11 @@ fun AddAccountScreen(
 
                             accountViewModel.addAccount(service, email, password)
                             navController.popBackStack()
-                            Toast.makeText(context, R.string.account_created_successfully, Toast.LENGTH_LONG).show()
+                            Toast.makeText(
+                                context,
+                                R.string.account_created_successfully,
+                                Toast.LENGTH_LONG
+                            ).show()
 
                         },
                         modifier = Modifier

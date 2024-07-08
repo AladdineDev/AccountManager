@@ -24,4 +24,13 @@
     <string name="cancel">Annuler</string>
     <string name="confirm">Confirmer</string>
     <string name="delete_account_message">Êtes-vous sûr de vouloir supprimer ce compte?</string>
+    <string name="save_settings">Enregistrer les paramètres</string>
+    <string name="include_special_chars">Inclure les charactères spéciaux</string>
+    <string name="include_numbers">Inclure les nombres</string>
+    <string name="password_length">Taille des mots de passes</string>
+    <string name="lowercase">Minuscules</string>
+    <string name="uppercase">Majuscules</string>
+    <string name="mixed">Mix</string>
+    <string name="letter_case">Types de lettres</string>
+    <string name="settings">Paramètres</string>
 </resources>

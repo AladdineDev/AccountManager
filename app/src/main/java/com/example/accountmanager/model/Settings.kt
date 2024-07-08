@@ -1,10 +1,12 @@
 package com.example.accountmanager.model
 
+import android.content.Context
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.stringResource
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.accountmanager.R
@@ -23,14 +25,11 @@ enum class LetterCase {
     UPPERCASE,
     MIXED;
 
-    fun stringResId(): String {
+    fun stringResId(): Int {
         return when (this) {
-            // LOWERCASE -> R.string.lowercase
-            LOWERCASE -> "lowercase"
-//            UPPERCASE -> R.string.uppercase
-            UPPERCASE -> "uppercase"
-//            MIXED -> R.string.mixed
-            MIXED -> "mixed"
+            LOWERCASE -> R.string.lowercase
+            UPPERCASE -> R.string.uppercase
+            MIXED -> R.string.mixed
         }
     }
 }

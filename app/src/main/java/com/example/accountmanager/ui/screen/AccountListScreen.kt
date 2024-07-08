@@ -1,5 +1,6 @@
 package com.example.accountmanager.ui.screen
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -35,6 +37,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
@@ -64,13 +67,16 @@ fun AccountListScreen(
             )
         },
         floatingActionButton = {
-            Column (
+            Column(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
                 FloatingActionButton(
                     onClick = { navController.navigate("add_account") },
                     content = {
-                        Icon(Icons.Default.Add, contentDescription = stringResource(R.string.add_account))
+                        Icon(
+                            Icons.Default.Add,
+                            contentDescription = stringResource(R.string.add_account)
+                        )
                     }
                 )
                 FloatingActionButton(
@@ -100,11 +106,14 @@ fun AccountListScreen(
                 },
                 modifier = Modifier
                     .fillMaxWidth(),
-                label = { Text( stringResource(R.string.search_accounts)) },
+                label = { Text(stringResource(R.string.search_accounts)) },
                 singleLine = true,
                 trailingIcon = {
                     IconButton(onClick = { query = TextFieldValue("") }) {
-                        Icon(Icons.Default.Clear, contentDescription = stringResource(R.string.clear_search) )
+                        Icon(
+                            Icons.Default.Clear,
+                            contentDescription = stringResource(R.string.clear_search)
+                        )
                     }
                 },
             )
@@ -141,6 +150,13 @@ fun AccountListItem(
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
         ListItem(
+            leadingContent = {
+                Image(
+                    modifier = Modifier.size(40.dp),
+                    painter = painterResource(account.service.getLogoResId()),
+                    contentDescription = account.service.displayName
+                )
+            },
             headlineContent = { Text(text = account.service.displayName) },
             supportingContent = { Text(text = account.email) },
             trailingContent = {

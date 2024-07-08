@@ -24,4 +24,13 @@
     <string name="cancel">Cancel</string>
     <string name="confirm">Confirm</string>
     <string name="delete_account_message">Are you sure you want to delete this account?</string>
+    <string name="save_settings">Save settings</string>
+    <string name="include_special_chars">Include special characters</string>
+    <string name="include_numbers">Include numbers</string>
+    <string name="password_length">Password length :</string>
+    <string name="lowercase">Lowercase</string>
+    <string name="uppercase">Uppercase</string>
+    <string name="mixed">Mixed</string>
+    <string name="letter_case">Letter case</string>
+    <string name="settings">Settings</string>
 </resources>
