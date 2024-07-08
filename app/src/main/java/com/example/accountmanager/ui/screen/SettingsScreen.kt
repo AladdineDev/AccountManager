@@ -64,10 +64,12 @@ fun SettingsScreen(
     var letterCase by remember { mutableStateOf(savedSettings.letterCase) }
 
     LaunchedEffect(savedSettings) {
-        passwordLength = savedSettings.passwordLength
-        includeNumbers = savedSettings.includeNumbers
-        includeSpecialChars = savedSettings.includeSpecialChars
-        letterCase = savedSettings.letterCase
+        savedSettings?.let {
+            passwordLength = it.passwordLength
+            includeNumbers = it.includeNumbers
+            includeSpecialChars = it.includeSpecialChars
+            letterCase = it.letterCase
+        }
     }
 
     Column(
@@ -81,7 +83,10 @@ fun SettingsScreen(
             title = { Text(stringResource(R.string.settings)) },
             navigationIcon = {
                 IconButton(onClick = { navController.popBackStack() }) {
-                    Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.back))
+                    Icon(
+                        Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = stringResource(R.string.back)
+                    )
                 }
             }
         )

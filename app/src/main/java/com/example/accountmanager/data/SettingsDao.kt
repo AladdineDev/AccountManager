@@ -17,6 +17,6 @@ interface SettingsDao {
     fun getSettings(): LiveData<Settings>
 
     @Upsert
-    suspend fun saveSettings(settings: Settings)
+    fun saveSettings(settings: Settings)
 
 }
