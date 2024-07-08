@@ -1,6 +1,7 @@
 package com.example.accountmanager.ui.screen
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,6 +15,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -61,13 +64,22 @@ fun AccountListScreen(
             )
         },
         floatingActionButton = {
-            FloatingActionButton(
-                onClick = { navController.navigate("add_account") },
-                modifier = Modifier.padding(16.dp),
-                content = {
-                    Icon(Icons.Default.Add, contentDescription = stringResource(R.string.add_account))
-                }
-            )
+            Column (
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+            ) {
+                FloatingActionButton(
+                    onClick = { navController.navigate("add_account") },
+                    content = {
+                        Icon(Icons.Default.Add, contentDescription = stringResource(R.string.add_account))
+                    }
+                )
+                FloatingActionButton(
+                    onClick = { navController.navigate("settings") },
+                    content = {
+                        Icon(Icons.Default.Settings, contentDescription = "Add Account")
+                    }
+                )
+            }
         }
     ) { innerPadding ->
         Column(

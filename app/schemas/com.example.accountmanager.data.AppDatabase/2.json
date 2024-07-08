@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 1,
-    "identityHash": "b7a488dd0ca9f746a34a462f145b30db",
+    "version": 2,
+    "identityHash": "9f5aa601934895a89ee40ae9a5164827",
     "entities": [
       {
         "tableName": "accounts",
@@ -44,7 +44,7 @@
       },
       {
         "tableName": "settings",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `passwordLength` INTEGER NOT NULL, `includeNumbers` INTEGER NOT NULL, `includeSpecialChars` INTEGER NOT NULL, `letterCase` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `passwordLength` REAL NOT NULL, `includeNumbers` INTEGER NOT NULL, `includeSpecialChars` INTEGER NOT NULL, `letterCase` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -55,7 +55,7 @@
           {
             "fieldPath": "passwordLength",
             "columnName": "passwordLength",
-            "affinity": "INTEGER",
+            "affinity": "REAL",
             "notNull": true
           },
           {
@@ -78,7 +78,7 @@
           }
         ],
         "primaryKey": {
-          "autoGenerate": false,
+          "autoGenerate": true,
           "columnNames": [
             "id"
           ]
@@ -90,7 +90,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b7a488dd0ca9f746a34a462f145b30db')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9f5aa601934895a89ee40ae9a5164827')"
     ]
   }
 }
