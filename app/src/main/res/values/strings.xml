@@ -1,3 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">AccountManager</string>
+    <string name="app_name">Account Manager</string>
+    <string name="account_list">Account List</string>
+    <string name="add_account">Add Account</string>
+    <string name="clear_search">Clear Search</string>
+    <string name="search_accounts">Search Accounts</string>
+    <string name="edit">Edit</string>
+    <string name="service">Service</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="dropdown_arrow">Dropdown arrow</string>
+    <string name="hide_password">Hide password</string>
+    <string name="show_password">Show password</string>
+    <string name="save">Save</string>
+    <string name="back">Back</string>
+    <string name="account">Account</string>
+    <string name="account_information">Account Information</string>
+    <string name="account_created_successfully">Account created successfully"</string>
+    <string name="edit_account_title">Edit Account</string>
+    <string name="delete_account">Delete account</string>
+    <string name="account_updated_success">Account updated successfully</string>
+    <string name="account_deleted_success">Account deleted successfully</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="delete_account_message">Are you sure you want to delete this account?</string>
 </resources>
